@@ -26,6 +26,12 @@ public class TalentoResource {
         return optionalTalento.orElseThrow(NotFoundException::new);
     }
 
+    @GET
+    @Path("{habilidade}")
+    public List<Talento> getTalentoByHabilidade(@PathParam("habilidade") String habilidade) {
+        return talentoService.findByHabilidade(habilidade);
+    }
+
     @POST
     public Talento addTalento(TalentoDTO talentoDTO){
         Talento talento = new Talento();

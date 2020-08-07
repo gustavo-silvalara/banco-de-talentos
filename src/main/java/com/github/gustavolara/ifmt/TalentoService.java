@@ -25,9 +25,9 @@ public class TalentoService {
                 .getResultList();
     }
 
-    public List<Talento> findByHabilidades(String habilidade) {
-        return entityManager.createNamedQuery("Talento.findByHabilidades")
-                .setParameter("habilidades", "%" + habilidade + "%")
+    public List<Talento> findByHabilidade(String habilidade) {
+        return entityManager.createNamedQuery("Talento.findByHabilidade")
+                .setParameter("habilidade", "%" + habilidade + "%")
                 .getResultList();
     }
 
