@@ -23,13 +23,14 @@ public class TalentoResource {
     @Path("{id}")
     public Talento getTalento(@PathParam("id") Integer id) {
         Optional<Talento> optionalTalento = talentoService.findById(id);
-        return optionalTalento.orElseThrow(() -> new NotFoundException());
+        return optionalTalento.orElseThrow(NotFoundException::new);
     }
 
     @POST
     public Talento addTalento(TalentoDTO talentoDTO){
         Talento talento = new Talento();
         talento.setNome(talentoDTO.getNome());
+        talento.setEmail(talentoDTO.getEmail());
         talento.setAreaDeAtuacao(talentoDTO.getAreaDeAtuacao());
         talento.setHabilidades(talentoDTO.getHabilidades());
         talento.setApresentacao(talentoDTO.getApresentacao());

@@ -6,6 +6,7 @@ import lombok.Data;
 public class TalentoDTO {
 
     private String nome;
+    private String email;
     private String areaDeAtuacao;
     private String habilidades;
     private String apresentacao;

@@ -22,6 +22,9 @@ public class Talento {
     @NotEmpty(message = "O nome não pode estar em vazio!")
     private String nome;
 
+    @NotEmpty(message = "O email não pode estar em vazio!")
+    private String email;
+
     @NotEmpty(message = "A área de atuação não pode estar vazia!")
     private String areaDeAtuacao;
 

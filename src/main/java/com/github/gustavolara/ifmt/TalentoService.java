@@ -4,6 +4,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +32,7 @@ public class TalentoService {
     }
 
     @Transactional
-    public Talento saveTalento(Talento talento) {
+    public Talento saveTalento(@Valid Talento talento) {
         if (talento.getId() == null) {
             entityManager.persist(talento);
         } else {
@@ -43,7 +44,7 @@ public class TalentoService {
     @Transactional
     public void deleteTalento(Integer id) {
         findById(id)
-                .ifPresentOrElse((t) -> entityManager.remove(t),
+                .ifPresentOrElse(t -> entityManager.remove(t),
                         () -> {
                             throw new NotFoundException();
                         });
