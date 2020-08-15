@@ -8,9 +8,9 @@ import java.time.LocalDateTime;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Talento.findAll", query = "SELECT t FROM Talento t"),
+        @NamedQuery(name = "Talento.findAll", query = "SELECT t FROM Talento t ORDER BY t.ultimaAtualizacao"),
         @NamedQuery(name = "Talento.findByHabilidade",
-                query = "SELECT t FROM Talento t WHERE t.habilidades LIKE :habilidade ")
+                query = "SELECT t FROM Talento t WHERE t.habilidades LIKE :habilidade ORDER BY t.ultimaAtualizacao")
 })
 @Data
 public class Talento {

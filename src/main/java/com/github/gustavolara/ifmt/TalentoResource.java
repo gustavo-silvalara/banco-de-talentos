@@ -15,8 +15,12 @@ public class TalentoResource {
     private TalentoService talentoService;
 
     @GET
-    public List<Talento> getAllTalentos() {
-        return talentoService.findAll();
+    public List<Talento> getTalentosList(@QueryParam("habilidade") String habilidade,
+                                         @DefaultValue("30") @QueryParam("pageCount") int pageCount,
+                                         @DefaultValue("1") @QueryParam("page") int page) {
+        return habilidade == null
+                ? talentoService.findAll(pageCount, page)
+                : talentoService.findByHabilidade(habilidade, pageCount, page);
     }
 
     @GET
@@ -26,14 +30,8 @@ public class TalentoResource {
         return optionalTalento.orElseThrow(NotFoundException::new);
     }
 
-    @GET
-    @Path("{habilidade}")
-    public List<Talento> getTalentoByHabilidade(@PathParam("habilidade") String habilidade) {
-        return talentoService.findByHabilidade(habilidade);
-    }
-
     @POST
-    public Talento addTalento(TalentoDTO talentoDTO){
+    public Talento addTalento(TalentoDTO talentoDTO) {
         Talento talento = new Talento();
         talento.setNome(talentoDTO.getNome());
         talento.setEmail(talentoDTO.getEmail());
@@ -45,10 +43,10 @@ public class TalentoResource {
 
     @PUT
     @Path("{id}")
-    public Talento updateTalento(@PathParam("id") Integer id, TalentoDTO talentoDTO){
+    public Talento updateTalento(@PathParam("id") Integer id, TalentoDTO talentoDTO) {
         Optional<Talento> talentoOptional = talentoService.findById(id);
         Talento talento;
-        if(talentoOptional.isPresent()){
+        if (talentoOptional.isPresent()) {
             talento = talentoOptional.get();
             talento.setNome(talentoDTO.getNome());
             talento.setAreaDeAtuacao(talentoDTO.getAreaDeAtuacao());
@@ -62,7 +60,7 @@ public class TalentoResource {
 
     @DELETE
     @Path("{id}")
-    public void deleteTalento(@PathParam("id") Integer id){
+    public void deleteTalento(@PathParam("id") Integer id) {
         talentoService.deleteTalento(id);
     }
 }
